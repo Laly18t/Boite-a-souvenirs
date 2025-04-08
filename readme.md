@@ -1,6 +1,8 @@
-# Three.js Projet - Boîte à secrets
+# Three.js Workshop - Boîte à secrets
 
-Nos contrainte :
+Groupe Axel Genin - Laly Teissier
+
+# Nos contrainte :
 - Boite à secrets
 - Ambiance rose
 - Ambiance “confortable isolement”
@@ -8,14 +10,24 @@ Nos contrainte :
 
 ## Recap par jour
 
-7/04 : init du projet et du git
+# 7/04 : init du projet et du git
 
-8/04 : premiers modeles
-- Axel =
-- Laly = import de la chambre
+# 8/04 :
+Recherche des modèles 3D 
+Recherche de sons pour les interactions
+Ajout du raycaster dans le projet
+Import de la chambre dans la scène
 
-9/04 : 
+# Ce qu'il reste à faire :
+- Ajouter les materiaux de la chambre
+- Importer les autres objets importants (tente, boite, objets, light)
+- Adapter le rayCaster pour les interactions avec la boite et les objets
+- Avoir un boite qui s'ouvre
+- Avoir les objets dans la boite qui s'anime et change d'emplacement
+- Ajouter des lights pour avoir une atmosphere rose
+- Ajouter les mouvements de caméra via des points précis pour parcourir la salle
 
-10/04 : 
-
-11/04 : 
+# Objectifs pour la prochaine fois :
+- Savoir animer un objet
+- Ajouter des interactions
+- Déplacement de caméra
