@@ -1,16 +1,21 @@
-# Three.js Journey
+# Three.js Projet - Boîte à secrets
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+Nos contrainte :
+- Boite à secrets
+- Ambiance rose
+- Ambiance “confortable isolement”
 
-``` bash
-# Install dependencies (only the first time)
-npm install
 
-# Run the local server at localhost:8080
-npm run dev
+## Recap par jour
 
-# Build for production in the dist/ directory
-npm run build
-```
+7/04 : init du projet et du git
+
+8/04 : premiers modeles
+- Axel =
+- Laly = import de la chambre
+
+9/04 : 
+
+10/04 : 
+
+11/04 : 
