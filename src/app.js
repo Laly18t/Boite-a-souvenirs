@@ -1,9 +1,29 @@
-import { PerspectiveCamera, Scene, WebGLRenderer } from 'three'
-import Cube from './World/Cube.js'
+import { PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import Cube from "./World/Cube"
+import { OrbitControls } from "three/examples/jsm/Addons.js"
+import EventEmitter from "./Utils/EventEmitter"
+import CanvasSize from "./Core/CanvasSize"
+import Camera from "./Core/Camera"
+import Renderer from "./Core/Renderer"
+import { AnimationLoop } from "./Core/AnimationLoop"
 
-export default class App {
-    constructor(canvas){
+let myAppInstance = null
+
+export default class App extends EventEmitter {
+    constructor(canvas) {
+        if (myAppInstance !== null) {
+            return myAppInstance
+        }
+
+        super()
+
+        myAppInstance = this
+
         this.canvas = canvas
+        this.canvasSize = new CanvasSize(canvas)
+
+        this.animationLoop = null
+        this.updateBound = this.update.bind(this)
 
         this.scene = null
         this.camera = null
@@ -14,42 +34,45 @@ export default class App {
         this.init()
     }
 
-    init (){
+    init() {
         this.scene = new Scene()
 
-        const aspect = this.canvas.clientWidth / this.canvas.clientHeight
-        this.camera = new PerspectiveCamera(90, aspect, 0.1, 10)
+        this.renderer = new Renderer()
+        this.camera = new Camera()
 
-        this.renderer = new WebGLRenderer({
-            canvas : this.canvas,
-            antialias : true
-        })
 
-        this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight)
-        this.renderer.setPixelRatio(1)
+        this.animationLoop = new AnimationLoop()
+        this.animationLoop.on('update', this.updateBound)
+        this.animationLoop.start()
 
         this.cube = new Cube()
-        this.cube.instance.position.set(0, 0, -5)
         this.scene.add(this.cube.instance)
-
-        this.animate()
     }
 
-    animate(){
-        requestAnimationFrame(() => this.animate)
-        this.renderer.render(this.scene, this.camera)
+    update() {
+        this.renderer.instance.render(this.scene, this.camera.perspective)
     }
 
-    destroy(){
-        //release memory of the scene 
-        // ....
-        this.scene = null 
+    destroy() {
+        // Release memory of the scene
+        this.scene.remove(this.cube)
+        this.cube.destroy()
+        this.cube = null
+        
+        this.scene = null
+
+        this.camera.destroy()
         this.camera = null
+
+        this.renderer.destroy()
         this.renderer = null
 
-        this.cube.detroy()
-        this.cube = null
+        this.animationLoop.off('update')
+        this.animationLoop = null
+        this.updateBound = null
 
         this.canvas = null
+
+        myAppInstance = null
     }
-}
+} 
