@@ -7,6 +7,7 @@ import Camera from "./Core/Camera"
 import Renderer from "./Core/Renderer"
 import { AnimationLoop } from "./Core/AnimationLoop"
 import { AssetManager } from "./Assets/AssetManager"
+import Room from "./World/Room"
 import RaycasterHandler from "./Core/RaycasterHandler"
 
 
@@ -38,7 +39,7 @@ export default class App extends EventEmitter {
 
 
        
-        this.cube = null
+        this.room = null
         this.RaycasterHandler = null
 
         this.init()
@@ -57,15 +58,16 @@ export default class App extends EventEmitter {
         this.assetManager = new AssetManager()
         this.assetsLoadCompleteHandlerBound = this.assetsLoadCompleteHandler.bind(this)
         this.assetManager.on('ready', this.assetsLoadCompleteHandlerBound)
+
         this.assetManager.load()
     }
 
     initScene() {
         this.scene = new Scene()
 
-        this.cube = new Cube()
+        this.room = new Room()
 
-        this.scene.add(this.cube.instance)
+        this.scene.add(this.room.instance)
 
        
     }
@@ -89,9 +91,9 @@ export default class App extends EventEmitter {
 
     destroy() {
         // Release memory of the scene
-        this.scene.remove(this.cube)
-        this.cube.destroy()
-        this.cube = null
+        this.scene.remove(this.room)
+        this.room.destroy()
+        this.room = null
         
         this.scene = null
 
