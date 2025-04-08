@@ -40,6 +40,7 @@ export default class App extends EventEmitter {
 
        
         this.room = null
+        this.cube = null
         this.RaycasterHandler = null
 
         this.init()
@@ -66,8 +67,11 @@ export default class App extends EventEmitter {
         this.scene = new Scene()
 
         this.room = new Room()
+        this.cube = new Cube()
 
         this.scene.add(this.room.instance)
+        this.scene.add(this.cube.instance)
+
 
        
     }
@@ -94,7 +98,8 @@ export default class App extends EventEmitter {
         this.scene.remove(this.room)
         this.room.destroy()
         this.room = null
-        
+        this.cube.destroy()
+        this.cube = null
         this.scene = null
 
         this.camera.destroy()
