@@ -50,6 +50,7 @@ export default class App extends EventEmitter {
         this.assetManager = new AssetManager()
         this.assetsLoadCompleteHandlerBound = this.assetsLoadCompleteHandler.bind(this)
         this.assetManager.on('ready', this.assetsLoadCompleteHandlerBound)
+        
         this.assetManager.load()
     }
 
