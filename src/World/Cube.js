@@ -1,12 +1,12 @@
 import { BoxGeometry, Mesh, MeshNormalMaterial } from "three"
 import App from "../App"
+import RaycasterHandler from "../Core/RaycasterHandler"
 
 export default class Cube {
     constructor() {
         this.instance = null
 
         this.app = new App()
-        
         this.init()
     }
 
@@ -18,8 +18,15 @@ export default class Cube {
         this.app.animationLoop.on('update', (data) => {
             this.update(data)
         })
+
+
+    
     }
 
+    grow() {
+        this.instance.scale.multiplyScalar(1.2);
+    }
+    
     update(data) {
         const { delta } = data
 

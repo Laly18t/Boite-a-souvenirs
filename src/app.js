@@ -7,6 +7,8 @@ import Camera from "./Core/Camera"
 import Renderer from "./Core/Renderer"
 import { AnimationLoop } from "./Core/AnimationLoop"
 import { AssetManager } from "./Assets/AssetManager"
+import RaycasterHandler from "./Core/RaycasterHandler"
+
 
 let myAppInstance = null
 
@@ -34,7 +36,10 @@ export default class App extends EventEmitter {
 
         this.assetManager = null
 
+
+       
         this.cube = null
+        this.RaycasterHandler = null
 
         this.init()
     }
@@ -42,6 +47,8 @@ export default class App extends EventEmitter {
     init() {
         this.renderer = new Renderer()
         this.camera = new Camera()
+
+        this.raycasterHandler = null
 
         this.animationLoop = new AnimationLoop()
         this.updateBound = this.update.bind(this)
@@ -59,11 +66,21 @@ export default class App extends EventEmitter {
         this.cube = new Cube()
 
         this.scene.add(this.cube.instance)
+
+       
     }
 
     assetsLoadCompleteHandler() {
         this.initScene()
+        this.raycasterHandler = new RaycasterHandler(); // 👈 move here
         this.animationLoop.start()
+
+        this.raycasterHandler.on("click", (intersects) => {
+            const hit = intersects.find(i => i.object === this.cube.instance);
+            if (hit) {
+                this.cube.grow();
+            }
+        });
     }
 
     update() {
